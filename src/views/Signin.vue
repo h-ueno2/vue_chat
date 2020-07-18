@@ -14,7 +14,7 @@
           required></v-text-field>
       </v-row>
       <v-row>
-        <v-btn>登録</v-btn>
+        <v-btn @click="signin">ログイン</v-btn>
       </v-row>
       <v-row>
         アカウントを新規作成しますか？
@@ -26,11 +26,21 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import firebase from 'firebase';
 
 @Component
 export default class Signin extends Vue {
   public username: string = '';
   public password: string = '';
   public valid: boolean = false;
+
+  public signin() {
+    firebase.auth().signInWithEmailAndPassword(this.username, this.password)
+      .then((user) => {
+        this.$router.push('/');
+      }, (err) => {
+        alert('error');
+      });
+  }
 }
 </script>

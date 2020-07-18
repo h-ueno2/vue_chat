@@ -14,11 +14,11 @@
           required></v-text-field>
       </v-row>
       <v-row>
-        <v-btn>登録</v-btn>
+        <v-btn @click="signup">登録</v-btn>
       </v-row>
       <v-row>
         アカウントを持っていますか？
-      <!-- <router-link to="/signin">sign in now!!</router-link> -->
+      <router-link to="/signin">sign in now!!</router-link>
       </v-row>
     </v-container>
   </v-form>
@@ -26,11 +26,22 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import firebase from 'firebase';
 
 @Component
 export default class Signup extends Vue {
   public username: string = '';
   public password: string = '';
   public valid: boolean = false;
+
+  public signup() {
+    firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
+      .then((user) => {
+        this.$router.push('/');
+      })
+      .catch((error) => {
+        alert('error!');
+      });
+  }
 }
 </script>
