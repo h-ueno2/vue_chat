@@ -34,10 +34,6 @@ export default class Signin extends Vue {
   public password: string = '';
   public valid: boolean = true;
 
-  get form(): VForm {
-    return (this.$refs as any).form;
-  }
-
   public signin() {
     firebase.auth().signInWithEmailAndPassword(this.username, this.password)
       .then((user) => {
