@@ -15,15 +15,11 @@
         label="E-mail"
         :rules="MailRules"></BaseTextField>
 
-      <v-text-field
+      <PasswordField
         class="ma-0"
         v-model="password"
         label="Password"
-        :rules="passwordRules"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="showPassword ? 'text' : 'password'"
-        @click:append="showPassword = !showPassword"
-        outlined></v-text-field>
+        :rules="passwordRules"></PasswordField>
 
       <v-btn
         rounded
@@ -44,11 +40,13 @@ import { Component, Vue, Mixins } from 'vue-property-decorator';
 import firebase from 'firebase';
 import MixinValid from '../mixins/MixinValid';
 import BaseTextField from '../atoms/BaseTextField.vue';
+import PasswordField from '../atoms/PasswordField.vue';
 
 @Component({
   name: 'SigninForm',
   components: {
     BaseTextField,
+    PasswordField,
   },
 })
 export default class SigninForm extends Mixins(MixinValid) {
@@ -56,7 +54,6 @@ export default class SigninForm extends Mixins(MixinValid) {
   private password: string = '';
   private valid: boolean = true;
   private errorMessage: string = '';
-  private showPassword: boolean = false;
 
   public signin() {
     if (!this.validate()) {
