@@ -9,12 +9,14 @@
       ref="form"
       v-model="valid"
       lazy-validation>
+
       <v-text-field
         v-model="username"
         label="E-mail"
         :rules="MailRules"
         required
         outlined></v-text-field>
+
       <v-text-field
         class="ma-0"
         v-model="password"
@@ -23,6 +25,9 @@
         required
         outlined></v-text-field>
       <v-btn
+        rounded
+        outlined
+        color="primary"
         @click="signin">ログイン</v-btn>
       <v-card-text>
         アカウントを新規作成しますか？
@@ -33,30 +38,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Mixins } from 'vue-property-decorator';
 import firebase from 'firebase';
-import VForm from '@/modlues/VForm.vue';
+import MixinValid from '../components/mixins/MixinValid';
 
 @Component
-export default class Signin extends Vue {
+export default class Signin extends Mixins(MixinValid) {
   private username: string = '';
   private password: string = '';
   private valid: boolean = true;
   private errorMessage: string = '';
-  private MailRules: any = [
-    (v: any) => !!v || 'E-mailを入力してください',
-    (v: any) => /.+@.+\..+/.test(v)　|| 'E-mailの形式ではありません',
-  ];
-  private passwordRules: any = [
-    (v: any) => !!v || 'Passwordを入力してください',
-  ];
-
-  get refs(): any {
-    return this.$refs as any;
-  }
 
   public signin() {
-    if (!this.refs.form.validate()) {
+    if (!this.validate()) {
       return;
     }
 
