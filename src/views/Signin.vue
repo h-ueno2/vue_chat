@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Mixins } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import SigninForm from '../components/molecules/SigninForm.vue';
 
 @Component({
+  name: 'Signin',
   components: {
     SigninForm,
   },
