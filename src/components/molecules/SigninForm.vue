@@ -10,12 +10,10 @@
       v-model="valid"
       lazy-validation>
 
-      <v-text-field
+      <BaseTextField
         v-model="username"
         label="E-mail"
-        :rules="MailRules"
-        required
-        solo></v-text-field>
+        :rules="MailRules"></BaseTextField>
 
       <v-text-field
         class="ma-0"
@@ -25,8 +23,7 @@
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
-        required
-        solo></v-text-field>
+        outlined></v-text-field>
 
       <v-btn
         rounded
@@ -46,9 +43,15 @@
 import { Component, Vue, Mixins } from 'vue-property-decorator';
 import firebase from 'firebase';
 import MixinValid from '../mixins/MixinValid';
+import BaseTextField from '../atoms/BaseTextField.vue';
 
-@Component
-export default class Signin extends Mixins(MixinValid) {
+@Component({
+  name: 'SigninForm',
+  components: {
+    BaseTextField,
+  },
+})
+export default class SigninForm extends Mixins(MixinValid) {
   private username: string = '';
   private password: string = '';
   private valid: boolean = true;
