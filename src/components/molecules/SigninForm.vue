@@ -13,13 +13,13 @@
       <BaseTextField
         v-model="username"
         label="E-mail"
-        :rules="MailRules"></BaseTextField>
+        :rules="[requiredRules,emailRules]"></BaseTextField>
 
       <PasswordField
         class="ma-0"
         v-model="password"
         label="Password"
-        :rules="passwordRules"></PasswordField>
+        :rules="[requiredRules]"></PasswordField>
 
       <v-btn
         rounded

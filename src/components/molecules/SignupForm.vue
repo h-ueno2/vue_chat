@@ -13,19 +13,22 @@
       <BaseTextField
         v-model="username"
         label="E-mail"
-        :rules="MailRules"></BaseTextField>
+        :rules="[requiredRules,emailRules]">
+      </BaseTextField>
 
       <PasswordField
         class="ma-0"
         v-model="password"
         label="Password"
-        :rules="passwordRules"></PasswordField>
+        :rules="[requiredRules]">
+      </PasswordField>
 
       <PasswordField
         class="ma-0"
         v-model="passwordConfirmation"
         label="Password確認"
-        :rules="PasswordConfirmationRule"></PasswordField>
+        :rules="[requiredRules,passwordConfirmationRule]">
+      </PasswordField>
 
       <v-btn
         rounded
@@ -62,8 +65,8 @@ export default class Signup extends Mixins(MixinValid) {
   public valid: boolean = false;
   private errorMessage: string = '';
 
-  get PasswordConfirmationRule() {
-    return [this.password === this.passwordConfirmation || 'Passwordと異なります。'];
+  get passwordConfirmationRule() {
+    return this.password === this.passwordConfirmation || 'Passwordと異なります。';
   }
 
   public signup() {

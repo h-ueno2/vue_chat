@@ -6,16 +6,11 @@ export default class MixinValid extends Vue {
     return this.$refs as any;
   }
 
-  private MailRules: any = [
-    (v: any) => !!v || 'E-mailを入力してください',
-    (v: any) => /.+@.+\..+/.test(v) || 'E-mailの形式ではありません',
-  ];
-
-  private passwordRules: any = [
-    (v: any) => !!v || 'Passwordを入力してください',
-  ];
-
   public validate(): boolean {
     return this.refs.form.validate();
   }
+
+  private requiredRules = (v: any) => !!v || '入力してください';
+  private emailRules = (v: any) =>
+    /.+@.+\..+/.test(v) || 'E-mailの形式ではありません'
 }
