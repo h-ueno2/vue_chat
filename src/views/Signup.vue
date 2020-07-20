@@ -1,5 +1,9 @@
 <template>
   <v-container>
+    <div
+      class="text-h3 d-flex align-center justify-center">
+      Signup
+    </div>
     <SignupForm/>
   </v-container>
 </template>
