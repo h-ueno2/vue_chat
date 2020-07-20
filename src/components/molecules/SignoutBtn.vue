@@ -12,7 +12,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 import firebase from 'firebase';
 
-@Component
+@Component({
+  name: 'SignoutBtn',
+})
 export default class SignoutBtn extends Vue {
   public signout() {
     firebase.auth().signOut().then(() => {
