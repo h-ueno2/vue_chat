@@ -7,7 +7,8 @@
     :append-icon="appendIcon"
     @click="$emit('click')"
     @click:append="$emit('click:append')"
-    outlined>
+    outlined
+    dense>
   </v-text-field>
 </template>
 
