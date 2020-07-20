@@ -21,6 +21,12 @@
         label="Password"
         :rules="passwordRules"></PasswordField>
 
+      <PasswordField
+        class="ma-0"
+        v-model="passwordConfirmation"
+        label="Password確認"
+        :rules="PasswordConfirmationRule"></PasswordField>
+
       <v-btn
         rounded
         outlined
@@ -52,8 +58,13 @@ import PasswordField from '../atoms/PasswordField.vue';
 export default class Signup extends Mixins(MixinValid) {
   public username: string = '';
   public password: string = '';
+  public passwordConfirmation: string = '';
   public valid: boolean = false;
   private errorMessage: string = '';
+
+  get PasswordConfirmationRule() {
+    return [this.password === this.passwordConfirmation || 'Passwordと異なります。'];
+  }
 
   public signup() {
     if (!this.validate()) {
