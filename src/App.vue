@@ -8,16 +8,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import NavBar from './components/templates/NavBar.vue';
 
-export default Vue.extend({
+@Component({
   name: 'App',
   components: {
     NavBar,
   },
-  data: () => ({
-    //
-  }),
-});
+})
+export default class App extends Vue {
+
+}
 </script>
