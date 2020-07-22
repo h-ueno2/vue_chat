@@ -17,7 +17,7 @@ import firebase from 'firebase';
   name: 'SignoutBtn',
 })
 export default class SignoutBtn extends Vue {
-  @Prop({default: true})
+  @Prop({default: false})
   public isSigned?: boolean;
 
   public signout() {

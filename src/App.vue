@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <NavBar/>
+    <NavBar
+      :isSigned="isSigned"/>
     <v-content>
       <router-view/>
     </v-content>

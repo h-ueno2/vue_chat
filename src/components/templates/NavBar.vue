@@ -5,12 +5,13 @@
     dark
   >
     <v-spacer></v-spacer>
-    <SignoutBtn/>
+    <SignoutBtn
+      :isSigned="isSigned"/>
   </v-app-bar>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import SignoutBtn from '../molecules/SignoutBtn.vue';
 
 @Component({
@@ -19,5 +20,8 @@ import SignoutBtn from '../molecules/SignoutBtn.vue';
     SignoutBtn,
   },
 })
-export default class NavBar extends Vue {}
+export default class NavBar extends Vue {
+  @Prop({default: false})
+  public isSigned?: boolean;
+}
 </script>
