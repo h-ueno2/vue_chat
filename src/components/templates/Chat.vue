@@ -5,16 +5,9 @@
         {{ name }}, {{ text }}
       </section>
     </transition-group>
-    <v-form>
-      <BaseTextField
-        v-model="input"
-        label="メッセージ">
-      </BaseTextField>
-      <v-btn
-        @click="send">
-        送信
-      </v-btn>
-    </v-form>
+    <ChatPostForm
+      v-model="input"
+      @send="send" />
   </v-container>
 </template>
 
@@ -23,11 +16,13 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import firebase from 'firebase';
 import BaseTextField from '../atoms/BaseTextField.vue';
 import { Message } from '../../modules/Message';
+import ChatPostForm from '../molecules/ChatPostForm.vue';
 
 @Component({
   name: 'Chat',
   components: {
     BaseTextField,
+    ChatPostForm,
   },
 })
 export default class Chat extends Vue {
