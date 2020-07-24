@@ -25,8 +25,8 @@ export default class BaseTextFiled extends Vue {
   @Prop({default: ''})
   public label?: string;
 
-  @Prop({default: []})
-  public rules?: any;
+  @Prop({default: () => {}})
+  public rules?: string[];
 
   @Prop({default: 'text'})
   public type?: string;
@@ -44,6 +44,7 @@ export default class BaseTextFiled extends Vue {
   private set localValue(value: string) {
     this.input(value);
   }
+
 }
 </script>
 
