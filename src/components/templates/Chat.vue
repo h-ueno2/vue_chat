@@ -10,7 +10,6 @@
         v-model="input"
         label="メッセージ">
       </BaseTextField>
-
       <v-btn
         @click="send">
         送信
