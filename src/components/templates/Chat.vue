@@ -1,10 +1,9 @@
 <template>
   <v-container>
-    <transition-group>
-      <section v-for="{ key, name, text } in messages" :key="key">
-        {{ name }}, {{ text }}
-      </section>
-    </transition-group>
+    <ChatMessageArea
+     :messages="messages"
+     />
+
     <ChatPostForm
       v-model="input"
       @send="send" />
@@ -17,12 +16,14 @@ import firebase from 'firebase';
 import BaseTextField from '../atoms/BaseTextField.vue';
 import { Message } from '../../modules/Message';
 import ChatPostForm from '../molecules/ChatPostForm.vue';
+import ChatMessageArea from '../molecules/ChatMessageArea.vue';
 
 @Component({
   name: 'Chat',
   components: {
     BaseTextField,
     ChatPostForm,
+    ChatMessageArea,
   },
 })
 export default class Chat extends Vue {
