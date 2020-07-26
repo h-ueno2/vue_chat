@@ -1,12 +1,17 @@
 <template>
   <v-container>
-    <transition-group>
-      <section v-for="message in messages" :key="message.key">
+    <v-timeline
+      dense>
+      <v-timeline-item
+        v-for="message in messages"
+        :key="message.key"
+        fill-dot=""
+        small>
         <ChatDispMessage
           :message="message"
           />
-      </section>
-    </transition-group>
+      </v-timeline-item>
+    </v-timeline>
   </v-container>
 </template>
 
