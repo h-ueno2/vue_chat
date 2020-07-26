@@ -3,19 +3,21 @@
     <v-flex>
       <v-row>
         <v-col
-          cols="9">
+          cols="10">
           <BaseTextField
             v-model="localValue"
             label="メッセージ">
           </BaseTextField>
         </v-col>
         <v-col
-          cols="3">
+          cols="2">
           <v-btn
             :disabled="!isInputed"
             @click="send"
+            color="primary"
             rounded
-            outlined="">
+            block
+            outlined>
             送信
           </v-btn>
         </v-col>
