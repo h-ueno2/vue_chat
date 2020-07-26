@@ -1,15 +1,26 @@
 <template>
   <v-container>
-    <v-form>
-      <BaseTextField
-        v-model="localValue"
-        label="メッセージ">
-      </BaseTextField>
-      <v-btn
-        @click="send">
-        送信
-      </v-btn>
-    </v-form>
+    <v-flex>
+      <v-row>
+        <v-col
+          cols="9">
+          <BaseTextField
+            v-model="localValue"
+            label="メッセージ">
+          </BaseTextField>
+        </v-col>
+        <v-col
+          cols="3">
+          <v-btn
+            :disabled="!isInputed"
+            @click="send"
+            rounded
+            outlined="">
+            送信
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-flex>
   </v-container>
 </template>
 
@@ -32,6 +43,10 @@ export default class ChatPostForm extends Vue {
 
   @Emit()
   public send() {}
+
+  private get isInputed(): boolean {
+    return this.value.length > 0;
+  }
 
   private get localValue(): string {
     return this.value;
