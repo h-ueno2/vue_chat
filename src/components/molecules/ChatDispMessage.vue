@@ -1,5 +1,6 @@
 <template>
-  <v-card>
+  <v-card
+    class="light-blue lighten-4">
     <v-card-text
       class="pt-1 pb-0">
       {{message.name}}
