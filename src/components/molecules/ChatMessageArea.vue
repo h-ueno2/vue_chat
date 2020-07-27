@@ -9,6 +9,7 @@
         small>
         <ChatDispMessage
           :message="message"
+          :currentUserUid="currentUserUid"
           />
       </v-timeline-item>
     </v-timeline>
@@ -30,6 +31,9 @@ import ChatDispMessage from './ChatDispMessage.vue';
 export default class ChatMessageArea extends Vue {
   @Prop({default: () => {}})
   public messages?: Message[];
+
+  @Prop({default: ''})
+  public currentUserUid?: string;
 }
 </script>
 

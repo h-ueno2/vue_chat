@@ -1,9 +1,10 @@
 <template>
   <v-card
-    class="light-blue lighten-4">
+    class="lighten-4"
+    :class="messageColor">
     <v-card-text
       class="pt-1 pb-0">
-      {{message.name}}
+      {{ message.name }}
     </v-card-text>
     <v-card-text
       class="pt-0 pb-1">
@@ -22,6 +23,17 @@ import { Message } from '../../modules/Message';
 export default class ChatDispMessage extends Vue {
   @Prop({required: true})
   public message!: Message;
+
+  @Prop({default: ''})
+  public currentUserUid?: string;
+
+  get isCurrentUserMessage(): boolean {
+    return this.currentUserUid === this.message.userUid;
+  }
+
+  get messageColor(): string {
+    return this.isCurrentUserMessage ? 'light-green' : 'light-blue';
+  }
 }
 </script>
 

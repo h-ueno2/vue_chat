@@ -2,6 +2,7 @@
   <v-container>
     <ChatMessageArea
      :messages="messages"
+     :currentUserUid="currentUserUid"
      />
 
     <ChatPostForm
@@ -31,6 +32,10 @@ export default class Chat extends Vue {
   private messages: Message[] = new Array();
   private user: firebase.User | null = null;
 
+  get currentUserUid(): string {
+    return this.user ? this.user.uid : '';
+  }
+
   public created() {
     firebase.auth().onAuthStateChanged((user) => {
       this.user = user;
@@ -50,8 +55,9 @@ export default class Chat extends Vue {
     const message = snap.val() as Message;
     this.messages.push({
       key: snap.key || '',
-      name: message.name,
+      userUid: message.userUid,
       text: message.text,
+      name: message.name,
     });
   }
 
@@ -59,8 +65,9 @@ export default class Chat extends Vue {
   public send() {
     if (this.user && this.user.uid && this.input.length > 0) {
       const message: Message = {
-        name: this.user.email || '',
+        userUid: this.user.uid || '',
         text: this.input,
+        name: this.user.email || '',
       };
       firebase.database().ref('message').push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
