@@ -14,10 +14,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import firebase from 'firebase';
-import BaseTextField from '../atoms/BaseTextField.vue';
-import { Message } from '../../modules/Message';
-import ChatPostForm from '../molecules/ChatPostForm.vue';
-import ChatMessageArea from '../molecules/ChatMessageArea.vue';
+import BaseTextField from '@/components/atoms/BaseTextField.vue';
+import { Message } from '@/modules/Message';
+import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
+import ChatMessageArea from '@/components/molecules/ChatMessageArea.vue';
 
 @Component({
   name: 'Chat',
