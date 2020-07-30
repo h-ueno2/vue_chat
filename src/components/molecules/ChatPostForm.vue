@@ -1,13 +1,17 @@
 <template>
   <v-container>
     <v-flex>
-      <v-row>
+      <v-row
+          align="center">
         <v-col
           cols="10">
-          <BaseTextField
+          <v-textarea
+            class="ma-0 pa-0"
             v-model="localValue"
-            label="メッセージ">
-          </BaseTextField>
+            label="メッセージ"
+            outlined=""
+            :rows="1">
+          </v-textarea>
         </v-col>
         <v-col
           cols="2">
