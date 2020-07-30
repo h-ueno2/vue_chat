@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
-import { Message } from '../../modules/Message';
+import { Message } from '@/modules/type';
 import ChatDispMessage from './ChatDispMessage.vue';
 
 
