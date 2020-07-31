@@ -7,7 +7,8 @@
       {{ message.name }}
     </v-card-text>
     <v-card-text
-      class="pt-0 pb-1">
+      class="pt-0 pb-1"
+      style="white-space:pre-line;">
       {{ message.text }}
     </v-card-text>
   </v-card>
