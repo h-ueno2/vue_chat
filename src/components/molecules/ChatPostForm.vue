@@ -1,32 +1,30 @@
 <template>
   <v-container>
-    <v-flex>
-      <v-row
-          align="center">
-        <v-col
-          cols="10">
-          <v-textarea
-            class="ma-0 pa-0"
-            v-model="localValue"
-            label="メッセージ"
-            outlined=""
-            :rows="1">
-          </v-textarea>
-        </v-col>
-        <v-col
-          cols="2">
-          <v-btn
-            :disabled="!isInputed"
-            @click="send"
-            color="primary"
-            rounded
-            block
-            outlined>
-            送信
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-flex>
+    <v-layout class="align-center">
+      <v-flex xs10
+        class="ma-2">
+        <v-textarea
+          v-model="localValue"
+          label="メッセージ"
+          :outlined="true"
+          :auto-grow="true"
+          :hide-details="true"
+          :row-height="14"
+          :rows="1">
+        </v-textarea>
+      </v-flex>
+      <v-flex xs2>
+        <v-btn
+          :disabled="!isInputed"
+          @click="send"
+          color="primary"
+          rounded
+          block
+          outlined>
+          送信
+        </v-btn>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -64,3 +62,8 @@ export default class ChatPostForm extends Vue {
 }
 </script>
 
+<style lang="scss" scoped>
+.v-text-field .v-input__control {
+  vertical-align: middle;
+}
+</style>
