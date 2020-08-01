@@ -1,14 +1,25 @@
 <template>
-  <v-container>
-    <ChatMessageArea
-     :messages="messages"
-     :currentUserUid="currentUserUid"
-     />
+  <v-sheet>
+    <v-container>
+      <v-responsive
+        class="overflow-y-auto"
+        max-height="calc(85vh)">
+        <ChatMessageArea
+          v-if="messages.length > 0"
+          :messages="messages"
+          :currentUserUid="currentUserUid"
+          />
+      </v-responsive>
+    </v-container>
 
-    <ChatPostForm
-      v-model="input"
-      @send="send" />
-  </v-container>
+    <v-footer
+      class="white"
+      fixed>
+      <ChatPostForm
+        v-model="input"
+        @send="send" />
+    </v-footer>
+  </v-sheet>
 </template>
 
 <script lang="ts">
