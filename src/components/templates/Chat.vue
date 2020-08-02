@@ -2,6 +2,7 @@
   <v-sheet>
     <v-container>
       <v-responsive
+        max-height="80vh"
         class="overflow-y-auto">
         <ChatMessageArea
           v-if="messages.length > 0"
@@ -13,7 +14,7 @@
 
     <v-footer
       class="white"
-      fixed>
+      >
       <ChatPostForm
         v-model="input"
         @send="send" />
