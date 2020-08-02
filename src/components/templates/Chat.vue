@@ -2,8 +2,7 @@
   <v-sheet>
     <v-container>
       <v-responsive
-        class="overflow-y-auto"
-        max-height="calc(85vh)">
+        class="overflow-y-auto">
         <ChatMessageArea
           v-if="messages.length > 0"
           :messages="messages"
