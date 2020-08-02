@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import SigninForm from '../components/molecules/SigninForm.vue';
+import SigninForm from '@/components/organisms/SigninForm.vue';
 
 @Component({
   name: 'Signin',
