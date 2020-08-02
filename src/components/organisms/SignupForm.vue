@@ -75,7 +75,7 @@ export default class Signup extends Mixins(MixinValid) {
 
     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then((user) => {
-        this.$router.push('/');
+        this.$router.push('/userUpdate');
       })
       .catch((error) => {
         this.errorMessage = '入力されたE-mail, Passwordでは登録できません。';

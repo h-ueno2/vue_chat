@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Signup from '@/components/pages/Signup.vue';
 import Signin from '@/components/pages/Signin.vue';
+import UserUpdate from '@/components/pages/UserUpdate.vue';
 import firebase from 'firebase';
 
 Vue.use(VueRouter);
@@ -27,6 +28,11 @@ const routes: RouteConfig[] = [
     path: '/signin',
     name: 'Signin',
     component: Signin,
+  },
+  {
+    path: '/userUpdate',
+    name: 'UserUpdate',
+    component: UserUpdate,
   },
 ];
 
