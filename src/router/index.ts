@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
-import Signup from '../views/Signup.vue';
-import Signin from '../views/Signin.vue';
+import Home from '@/views/Home.vue';
+import Signup from '@/components/pages/Signup.vue';
+import Signin from '@/components/pages/Signin.vue';
 import firebase from 'firebase';
 
 Vue.use(VueRouter);
