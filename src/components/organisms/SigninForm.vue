@@ -1,10 +1,7 @@
 <template>
   <v-card class="pa-10 ma-10">
-    <v-card-subtitle
-      v-if="errorMessage!=''"
-      class="red--text">
-      {{errorMessage}}
-    </v-card-subtitle>
+    <ErrorMessageText
+      :text="errorMessage" />
     <v-form 
       ref="form"
       v-model="valid"
@@ -38,15 +35,17 @@
 <script lang="ts">
 import { Component, Vue, Mixins } from 'vue-property-decorator';
 import firebase from 'firebase';
-import MixinValid from '../mixins/MixinValid';
-import BaseTextField from '../atoms/BaseTextField.vue';
-import PasswordField from '../atoms/PasswordField.vue';
+import MixinValid from '@/components/mixins/MixinValid';
+import BaseTextField from '@/components/atoms/BaseTextField.vue';
+import PasswordField from '@/components/atoms/PasswordField.vue';
+import ErrorMessageText from '@/components/atoms/ErrorMessageText.vue';
 
 @Component({
   name: 'SigninForm',
   components: {
     BaseTextField,
     PasswordField,
+    ErrorMessageText,
   },
 })
 export default class SigninForm extends Mixins(MixinValid) {
