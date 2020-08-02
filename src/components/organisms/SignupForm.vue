@@ -8,7 +8,7 @@
       lazy-validation>
 
       <BaseTextField
-        v-model="username"
+        v-model="email"
         label="E-mail"
         :rules="[requiredRules,emailRules]">
       </BaseTextField>
@@ -58,7 +58,7 @@ import ErrorMessageText from '@/components/atoms/ErrorMessageText.vue';
   },
 })
 export default class Signup extends Mixins(MixinValid) {
-  public username: string = '';
+  public email: string = '';
   public password: string = '';
   public passwordConfirmation: string = '';
   public valid: boolean = false;
@@ -73,7 +73,7 @@ export default class Signup extends Mixins(MixinValid) {
       return;
     }
 
-    firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
+    firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then((user) => {
         this.$router.push('/');
       })
