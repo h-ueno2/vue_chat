@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { Message } from '@/modules/type';
-import ChatDispMessage from './ChatDispMessage.vue';
+import ChatDispMessage from '@/components/molecules/ChatDispMessage.vue';
 
 
 @Component({

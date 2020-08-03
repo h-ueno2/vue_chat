@@ -28,7 +28,7 @@ import firebase from 'firebase';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
-import ChatMessageArea from '@/components/molecules/ChatMessageArea.vue';
+import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
 
 @Component({
   name: 'Chat',

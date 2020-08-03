@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
-import BaseTextField from '../atoms/BaseTextField.vue';
+import BaseTextField from '@/components/atoms/BaseTextField.vue';
 
 @Component({
   name: 'ChatPostForm',
