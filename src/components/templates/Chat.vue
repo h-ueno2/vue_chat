@@ -29,6 +29,7 @@ import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
 import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
+import DateFormatter from '@/modules/util/DateFormatter';
 
 @Component({
   name: 'Chat',
@@ -76,34 +77,17 @@ export default class Chat extends Vue {
   // メッセージの送信
   public send() {
     if (this.user && this.user.uid && this.input.length > 0) {
+      const formatter = new DateFormatter(new Date());
       const message: Message = {
         userUid: this.user.uid || '',
         text: this.input,
-        postedAt: this.formatDate(new Date()),
+        postedAt: formatter.format('yyyy-MM-dd hh:mm:ss'),
         name: this.user.email || '',
       };
       firebase.database().ref('message').push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
-  }
-
-  private formatDate(date: Date): string {
-
-    const year = date.getFullYear().toString();
-    const month = ('0' + (1 + date.getMonth())).slice(-2);
-    const day = ('0' + date.getDate().toString()).slice(-2);
-    const hour = ('0' + date.getHours()).slice(-2);
-    const minute = ('0' + date.getMinutes()).slice(-2);
-    const second = ('0' + date.getSeconds()).slice(-2);
-    const format = 'YYYY-MM-DD hh:mm:ss';
-
-    return format.replace(/YYYY/g, year)
-                 .replace(/MM/g, month)
-                 .replace(/DD/g, day)
-                 .replace(/hh/g, hour)
-                 .replace(/mm/g, minute)
-                 .replace(/ss/g, second);
   }
 }
 </script>
