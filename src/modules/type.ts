@@ -8,5 +8,8 @@ export interface Message {
   /** メッセージ内容 */
   text: string;
 
+  /** 投稿日時 */
+  postedAt: string;
+
   name: string;
 }

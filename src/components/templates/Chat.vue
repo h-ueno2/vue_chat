@@ -68,6 +68,7 @@ export default class Chat extends Vue {
       key: snap.key || '',
       userUid: message.userUid,
       text: message.text,
+      postedAt: message.postedAt,
       name: message.name,
     });
   }
@@ -78,12 +79,31 @@ export default class Chat extends Vue {
       const message: Message = {
         userUid: this.user.uid || '',
         text: this.input,
+        postedAt: this.formatDate(new Date()),
         name: this.user.email || '',
       };
       firebase.database().ref('message').push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
+  }
+
+  private formatDate(date: Date): string {
+
+    const year = date.getFullYear().toString();
+    const month = ('0' + (1 + date.getMonth())).slice(-2);
+    const day = ('0' + date.getDate().toString()).slice(-2);
+    const hour = ('0' + date.getHours()).slice(-2);
+    const minute = ('0' + date.getMinutes()).slice(-2);
+    const second = ('0' + date.getSeconds()).slice(-2);
+    const format = 'YYYY-MM-DD hh:mm:ss';
+
+    return format.replace(/YYYY/g, year)
+                 .replace(/MM/g, month)
+                 .replace(/DD/g, day)
+                 .replace(/hh/g, hour)
+                 .replace(/mm/g, minute)
+                 .replace(/ss/g, second);
   }
 }
 </script>

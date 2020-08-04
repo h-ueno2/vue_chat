@@ -4,7 +4,7 @@
     :class="messageColor">
     <v-card-text
       class="pt-1 pb-0">
-      {{ message.name }}
+      {{ message.name }} {{ message.postedAt }}
     </v-card-text>
     <v-card-text
       class="pt-0 pb-1"
