@@ -34,6 +34,19 @@ export class DateFormatter {
   }
 }
 
+/**
+ * フォーマット一覧
+ */
 export const enum FormatType {
+  /** yyyy-MM-dd HH:mm:ss */
   HYPHEN_DATE_TIME = 'yyyy-MM-dd HH:mm:ss',
+
+  /** yyyy-MM-dd */
+  HYPHEN_DATE = 'yyyy-MM-dd',
+
+  /** yyyyMMddHHmmss */
+  NOT_SEPARATOR_DATE_TYME = 'yyyyMMddHHmmss',
+
+  /** yyyyMMdd */
+  NOT_SEPARATOR_DATE = 'yyyyMMdd',
 }
