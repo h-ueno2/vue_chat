@@ -1,10 +1,9 @@
-import DateFormatter from '@/modules/util/DateFormatter';
-
+import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
 
 describe('DateFormatter', (): void => {
   describe('format', (): void => {
 
-    const format = 'yyyy-MM-dd hh:mm:ss';
+    const format = 'yyyy-MM-dd HH:mm:ss';
 
     test('フォーマット通り表示されるか。', (): void => {
       const date = new Date(2020, 7, 12, 23, 12, 34);
@@ -15,9 +14,15 @@ describe('DateFormatter', (): void => {
     test('フォーマット通り表示されるか。0埋め確認', (): void => {
       const date = new Date(2020, 7, 1, 2, 3, 1);
       const formatter = new DateFormatter(date);
-      const expected = '2020-08-01 02:03:01';
+      expect(formatter.format(format)).toMatch('2020-08-01 02:03:01');
+    });
 
-      expect(formatter.format(format)).toMatch(expected);
+    test('Enumを使用してフォーマット通り表示されるか。yyyy-MM-dd hh:MM:ss形式', (): void => {
+      const date = new Date(2020, 7, 12, 23, 12, 34);
+      const formatter = new DateFormatter(date);
+      expect(formatter.format(FormatType.HYPHEN_DATE_TIME)).toMatch(
+        '2020-08-12 23:12:34',
+      );
     });
   });
 });

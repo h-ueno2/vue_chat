@@ -29,7 +29,7 @@ import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
 import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
-import DateFormatter from '@/modules/util/DateFormatter';
+import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
 
 @Component({
   name: 'Chat',
@@ -81,7 +81,7 @@ export default class Chat extends Vue {
       const message: Message = {
         userUid: this.user.uid || '',
         text: this.input,
-        postedAt: formatter.format('yyyy-MM-dd hh:mm:ss'),
+        postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
         name: this.user.email || '',
       };
       firebase.database().ref('message').push(message, () => {

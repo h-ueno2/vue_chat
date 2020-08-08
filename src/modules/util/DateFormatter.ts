@@ -1,12 +1,13 @@
+
 /**
  * 日付のフォーマッター
  */
-export default class DateFormatter {
+export class DateFormatter {
   constructor(private date: Date) {
   }
 
   /**
-   *
+   * 日付フォーマット
    * @param format フォーマットしたい形式を表現した文字列。
    * yyyy: 年（例:2018）
    * MM: 月（例：08）
@@ -27,8 +28,12 @@ export default class DateFormatter {
       .replace(/yyyy/g, year)
       .replace(/MM/g, month)
       .replace(/dd/g, day)
-      .replace(/hh/g, hour)
+      .replace(/HH/g, hour)
       .replace(/mm/g, minute)
       .replace(/ss/g, second);
   }
+}
+
+export const enum FormatType {
+  HYPHEN_DATE_TIME = 'yyyy-MM-dd HH:mm:ss',
 }
