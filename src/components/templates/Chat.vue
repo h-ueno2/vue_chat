@@ -82,7 +82,7 @@ export default class Chat extends Vue {
         userUid: this.user.uid || '',
         text: this.input,
         postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
-        name: this.user.email || '',
+        name: this.user.displayName || '',
       };
       firebase.database().ref('message').push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
