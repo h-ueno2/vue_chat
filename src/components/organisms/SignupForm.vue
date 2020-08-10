@@ -31,6 +31,7 @@
         rounded
         outlined
         color="primary"
+        :disabled="isClicked"
         @click="signup">登録</v-btn>
 
       <v-card-text>
@@ -63,13 +64,17 @@ export default class Signup extends Mixins(MixinValid) {
   public passwordConfirmation: string = '';
   public valid: boolean = false;
   private errorMessage: string = '';
+  private isClicked: boolean = false;
 
   get passwordConfirmationRule() {
     return this.password === this.passwordConfirmation || 'Passwordと異なります。';
   }
 
   public signup() {
+    this.isClicked = true;
+
     if (!this.validate()) {
+      this.isClicked = false;
       return;
     }
 
@@ -78,6 +83,7 @@ export default class Signup extends Mixins(MixinValid) {
         this.$router.push('/userUpdate');
       })
       .catch((error) => {
+        this.isClicked = false;
         this.errorMessage = '入力されたE-mail, Passwordでは登録できません。';
       });
   }

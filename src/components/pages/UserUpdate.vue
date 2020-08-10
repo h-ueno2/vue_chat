@@ -10,6 +10,7 @@
       <v-form
         ref="form"
         v-model="valid"
+        @submit.prevent=""
         lazy-validation>
 
         <BaseTextField
@@ -21,6 +22,7 @@
           rounded
           outlined
           color="primary"
+          :disabled="isClicked"
           @click="update">更新</v-btn>
       </v-form>
 
@@ -47,6 +49,7 @@ export default class UserUpdate extends Mixins(MixinValid) {
   public valid: boolean = false;
   private user?: firebase.User | null;
   private errorMessage: string = '';
+  private isClicked: boolean = false;
 
   public created() {
     this.user = firebase.auth().currentUser;
@@ -61,11 +64,14 @@ export default class UserUpdate extends Mixins(MixinValid) {
       return;
     }
 
+    this.isClicked = true;
+
     this.user.updateProfile({
       displayName: this.name,
     }).then(() => {
       this.$router.push('/');
     }).catch((error) => {
+      this.isClicked = false;
       this.errorMessage = '更新に失敗しました。';
     });
   }

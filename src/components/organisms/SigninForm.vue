@@ -22,6 +22,7 @@
         rounded
         outlined
         color="primary"
+        :disabled="isClicked"
         @click="signin">ログイン</v-btn>
 
       <v-card-text>
@@ -53,9 +54,13 @@ export default class SigninForm extends Mixins(MixinValid) {
   private password: string = '';
   private valid: boolean = true;
   private errorMessage: string = '';
+  private isClicked: boolean = false;
 
   public signin() {
+    this.isClicked = true;
+
     if (!this.validate()) {
+      this.isClicked = false;
       return;
     }
 
@@ -64,6 +69,7 @@ export default class SigninForm extends Mixins(MixinValid) {
         this.errorMessage = '';
         this.$router.push('/');
       }, (err) => {
+        this.isClicked = false;
         this.errorMessage = 'E-mail、Passwordの入力に誤りがあるか登録されていません。';
       });
   }
