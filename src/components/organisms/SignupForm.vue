@@ -8,6 +8,11 @@
       lazy-validation>
 
       <BaseTextField
+        v-model="name"
+        label="name"
+        :rules="[requiredRules]"></BaseTextField>
+
+      <BaseTextField
         v-model="email"
         label="E-mail"
         :rules="[requiredRules,emailRules]">
@@ -59,6 +64,7 @@ import ErrorMessageText from '@/components/atoms/ErrorMessageText.vue';
   },
 })
 export default class Signup extends Mixins(MixinValid) {
+  public name: string = '';
   public email: string = '';
   public password: string = '';
   public passwordConfirmation: string = '';
@@ -84,8 +90,11 @@ export default class Signup extends Mixins(MixinValid) {
         if (!newUser) {
           return;
         }
-        this.writeUserData(newUser.uid, newUser.email || '');
-        this.$router.push('/userUpdate');
+        newUser.updateProfile({
+          displayName: this.name,
+        });
+        this.writeUserData(newUser.uid, this.name, newUser.email || '');
+        this.$router.push('/');
       })
       .catch((error) => {
         this.isClicked = false;
@@ -96,8 +105,9 @@ export default class Signup extends Mixins(MixinValid) {
   /**
    * Realtime DatabaseにUserデータを格納します。
    */
-  public writeUserData(uid: string, email: string) {
+  public writeUserData(uid: string, name: string, email: string) {
     firebase.database().ref('users/' + uid).set({
+      name,
       email,
     });
   }
