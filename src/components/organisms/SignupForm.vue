@@ -80,12 +80,26 @@ export default class Signup extends Mixins(MixinValid) {
 
     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then((user) => {
+        const newUser = firebase.auth().currentUser;
+        if (!newUser) {
+          return;
+        }
+        this.writeUserData(newUser.uid, newUser.email || '');
         this.$router.push('/userUpdate');
       })
       .catch((error) => {
         this.isClicked = false;
         this.errorMessage = '入力されたE-mail, Passwordでは登録できません。';
       });
+  }
+
+  /**
+   * Realtime DatabaseにUserデータを格納します。
+   */
+  public writeUserData(uid: string, email: string) {
+    firebase.database().ref('users/' + uid).set({
+      email,
+    });
   }
 }
 </script>
