@@ -65,11 +65,15 @@ export default class UserUpdate extends Mixins(MixinValid) {
     }
 
     this.isClicked = true;
-
+    const usr = this.user;
     this.user.updateProfile({
       displayName: this.name,
     }).then(() => {
-      this.$router.push('/');
+      firebase.database().ref('users/' + usr.uid).update({
+        name: usr.displayName,
+      }).then(() => {
+        this.$router.push('/');
+      });
     }).catch((error) => {
       this.isClicked = false;
       this.errorMessage = '更新に失敗しました。';
