@@ -43,6 +43,7 @@ export default class Chat extends Vue {
   private input: string = '';
   private messages: Message[] = new Array();
   private user: firebase.User | null = null;
+  private refMessage: firebase.database.Reference = firebase.database().ref('message');
 
   get currentUserUid(): string {
     return this.user ? this.user.uid : '';
@@ -51,12 +52,11 @@ export default class Chat extends Vue {
   public created() {
     firebase.auth().onAuthStateChanged((user) => {
       this.user = user;
-      const refMessage = firebase.database().ref('message');
       if (user) {
         this.messages = [];
-        refMessage.limitToLast(10).on('child_added', this.chilidAdded);
+        this.refMessage.limitToLast(10).on('child_added', this.chilidAdded);
       } else {
-        refMessage.limitToLast(10).on('child_added', this.chilidAdded);
+        this.refMessage.limitToLast(10).on('child_added', this.chilidAdded);
       }
     });
   }
@@ -84,7 +84,7 @@ export default class Chat extends Vue {
         postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
         name: this.user.displayName || '',
       };
-      firebase.database().ref('message').push(message, () => {
+      this.refMessage.push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
