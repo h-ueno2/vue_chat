@@ -13,3 +13,14 @@ export interface Message {
 
   name: string;
 }
+
+export interface ChatUser {
+  /** uid */
+  uid: string;
+
+  /** ユーザ名 */
+  name: string;
+
+  /** email */
+  email: string;
+}

@@ -1,5 +1,6 @@
 <template>
   <v-sheet>
+    {{ user }}
     <v-container>
       <v-responsive
         max-height="80vh"
@@ -24,9 +25,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import firebase from 'firebase';
+import firebase, { User } from 'firebase';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
-import { Message } from '@/modules/type';
+import { Message, ChatUser } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
 import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
 import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
@@ -42,7 +43,8 @@ import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
 export default class Chat extends Vue {
   private input: string = '';
   private messages: Message[] = new Array();
-  private user: firebase.User | null = null;
+  private user: ChatUser | null = null;
+  private refUser: firebase.database.Reference = firebase.database().ref('users');
   private refMessage: firebase.database.Reference = firebase.database().ref('message');
 
   get currentUserUid(): string {
@@ -51,7 +53,18 @@ export default class Chat extends Vue {
 
   public created() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.user = user;
+      if (!user) {
+        return;
+      }
+
+      firebase.database().ref('users/' + user.uid).once('value').then((snap) => {
+        this.user = {
+          uid: user.uid,
+          name: snap.child('name').val(),
+          email: snap.child('email').val(),
+        };
+      });
+
       if (user) {
         this.messages = [];
         this.refMessage.limitToLast(10).on('child_added', this.chilidAdded);
@@ -82,7 +95,7 @@ export default class Chat extends Vue {
         userUid: this.user.uid || '',
         text: this.input,
         postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
-        name: this.user.displayName || '',
+        name: this.user.name || '',
       };
       this.refMessage.push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
