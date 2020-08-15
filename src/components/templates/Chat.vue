@@ -1,6 +1,5 @@
 <template>
   <v-sheet>
-    {{ user }}
     <v-container>
       <v-responsive
         max-height="80vh"
@@ -56,15 +55,9 @@ export default class Chat extends Vue {
       if (!user) {
         return;
       }
-
-      firebase.database().ref('users/' + user.uid).once('value').then((snap) => {
-        this.user = {
-          uid: user.uid,
-          name: snap.child('name').val(),
-          email: snap.child('email').val(),
-        };
+      this.getUserByUid(user.uid).then((res) => {
+        this.user = res;
       });
-
       if (user) {
         this.messages = [];
         this.refMessage.limitToLast(10).on('child_added', this.chilidAdded);
@@ -101,6 +94,19 @@ export default class Chat extends Vue {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
+  }
+
+  public async getUserByUid(uid: string): Promise<ChatUser> {
+    return await new Promise<ChatUser> ((resolve, reject) => {
+      firebase.database().ref('users/' + uid).once('value').then((snap) => {
+        const user: ChatUser = {
+          uid,
+          name: snap.child('name').val(),
+          email: snap.child('email').val(),
+        };
+        resolve(user);
+      });
+    });
   }
 }
 </script>
