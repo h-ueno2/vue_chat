@@ -1,5 +1,9 @@
 <template>
   <v-sheet>
+    <div
+      class="text-h4 d-flex align-center justify-center">
+      {{ room.name }}
+    </div>
     <v-container>
       <v-responsive
         max-height="80vh"
@@ -24,12 +28,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import firebase, { User } from 'firebase';
+import firebase, { User, database } from 'firebase';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message, ChatUser } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
 import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
 import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
+import Room from '@/modules/Room';
 
 @Component({
   name: 'Chat',
@@ -43,14 +48,22 @@ export default class Chat extends Vue {
   private input: string = '';
   private messages: Message[] = new Array();
   private user: ChatUser | null = null;
-  private refUser: firebase.database.Reference = firebase.database().ref('users');
-  private refMessage: firebase.database.Reference = firebase.database().ref('message');
+  private room: Room = new Room();
+
+  // propにする予定
+  private roomCd = 'room1';
+  private refMessage: firebase.database.Reference = firebase.database().ref('message/' + this.roomCd);
 
   get currentUserUid(): string {
     return this.user ? this.user.uid : '';
   }
 
   public created() {
+    this.chatInit();
+  }
+
+  /** チャットの初期化処理 */
+  public async chatInit() {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         return;
@@ -58,6 +71,19 @@ export default class Chat extends Vue {
       this.getUserByUid(user.uid).then((res) => {
         this.user = res;
       });
+
+      firebase.database().ref('rooms/' + this.roomCd).once('value').then((snap) => {
+        const members: ChatUser[] = [];
+        snap.child('members').forEach((member) => {
+          if (member.key && member.val()) {
+            this.getUserByUid(member.key).then((res) => {
+              members.push(res);
+            });
+          }
+        });
+        this.room = new Room(this.roomCd, snap.child('name').val(), members);
+      });
+
       if (user) {
         this.messages = [];
         this.refMessage.limitToLast(10).on('child_added', this.messageAdded);
