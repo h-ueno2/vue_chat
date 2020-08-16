@@ -60,16 +60,16 @@ export default class Chat extends Vue {
       });
       if (user) {
         this.messages = [];
-        this.refMessage.limitToLast(10).on('child_added', this.chilidAdded);
+        this.refMessage.limitToLast(10).on('child_added', this.messageAdded);
       } else {
-        this.refMessage.limitToLast(10).on('child_added', this.chilidAdded);
+        this.refMessage.limitToLast(10).on('child_added', this.messageAdded);
       }
     });
   }
 
   // 受け取ったメッセージを追加
   // Firebaseのデータベースに新しい要素が追加されると随時呼び出しする
-  public chilidAdded(snap: firebase.database.DataSnapshot) {
+  public messageAdded(snap: firebase.database.DataSnapshot) {
     const message = snap.val() as Message;
     this.messages.push({
       key: snap.key || '',
