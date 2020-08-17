@@ -13,4 +13,10 @@ export default class Room {
     this.name = name || '';
     this.members = members || [];
   }
+
+  public getMember(userUid: string): ChatUser | undefined {
+    return this.members.find((member) => {
+      return member.uid === userUid;
+    });
+  }
 }

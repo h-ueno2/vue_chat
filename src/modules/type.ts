@@ -12,6 +12,8 @@ export interface Message {
   postedAt: string;
 
   name: string;
+
+  user?: ChatUser;
 }
 
 export interface ChatUser {

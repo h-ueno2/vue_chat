@@ -68,21 +68,9 @@ export default class Chat extends Vue {
       if (!user) {
         return;
       }
-      this.getUserByUid(user.uid).then((res) => {
-        this.user = res;
-      });
+      this.setUser(user.uid);
 
-      firebase.database().ref('rooms/' + this.roomCd).once('value').then((snap) => {
-        const members: ChatUser[] = [];
-        snap.child('members').forEach((member) => {
-          if (member.key && member.val()) {
-            this.getUserByUid(member.key).then((res) => {
-              members.push(res);
-            });
-          }
-        });
-        this.room = new Room(this.roomCd, snap.child('name').val(), members);
-      });
+      this.setRoom(this.roomCd);
 
       if (user) {
         this.messages = [];
@@ -93,16 +81,38 @@ export default class Chat extends Vue {
     });
   }
 
+  public async setUser(uid: string) {
+    this.user =  await this.getUserByUid(uid);
+  }
+
+  public async setRoom(roomCd: string) {
+    this.room = await new Promise<Room>((resolve, reject) => {
+      firebase.database().ref('rooms/' + roomCd).once('value').then((snap) => {
+        const members: ChatUser[] = [];
+        snap.child('members').forEach((member) => {
+          if (member.key && member.val()) {
+            this.getUserByUid(member.key).then((res) => {
+              members.push(res);
+            });
+          }
+        });
+        resolve(new Room(this.roomCd, snap.child('name').val(), members));
+      });
+    });
+  }
+
   // 受け取ったメッセージを追加
   // Firebaseのデータベースに新しい要素が追加されると随時呼び出しする
   public messageAdded(snap: firebase.database.DataSnapshot) {
     const message = snap.val() as Message;
+    const user = this.room.getMember(message.userUid);
     this.messages.push({
       key: snap.key || '',
       userUid: message.userUid,
       text: message.text,
       postedAt: message.postedAt,
       name: message.name,
+      user,
     });
   }
 

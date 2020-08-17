@@ -4,7 +4,7 @@
     :class="messageColor">
     <v-card-text
       class="pt-1 pb-0">
-      {{ message.name }} {{ message.postedAt }}
+      {{ postedUserName }} {{ message.postedAt }}
     </v-card-text>
     <v-card-text
       class="pt-0 pb-1"
@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
-import { Message } from '@/modules/type';
+import { Message, ChatUser } from '@/modules/type';
 
 @Component({
   name: 'ChatDispMessage',
@@ -27,6 +27,14 @@ export default class ChatDispMessage extends Vue {
 
   @Prop({default: ''})
   public currentUserUid?: string;
+
+  get postedUser(): ChatUser | undefined {
+    return this.message.user;
+  }
+
+  get postedUserName(): string {
+    return this.postedUser ? this.postedUser.name : '';
+  }
 
   get isCurrentUserMessage(): boolean {
     return this.currentUserUid === this.message.userUid;
