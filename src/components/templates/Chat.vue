@@ -33,7 +33,7 @@ import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message, ChatUser } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
 import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
-import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
+import DateFormatter, { FormatType } from '@/modules/util/DateFormatter';
 import Room from '@/modules/Room';
 
 @Component({

@@ -2,7 +2,7 @@
 /**
  * 日付のフォーマッター
  */
-export class DateFormatter {
+export default class DateFormatter {
   constructor(private date: Date) {
   }
 

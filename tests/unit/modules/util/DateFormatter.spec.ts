@@ -1,4 +1,4 @@
-import { DateFormatter, FormatType } from '@/modules/util/DateFormatter';
+import DateFormatter, { FormatType } from '@/modules/util/DateFormatter';
 
 describe('DateFormatter', (): void => {
   describe('format', (): void => {
