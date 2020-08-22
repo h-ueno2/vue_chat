@@ -60,11 +60,6 @@ export default class Chat extends Vue {
   }
 
   public created() {
-    this.chatInit();
-  }
-
-  /** チャットの初期化処理 */
-  public async chatInit() {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         return;
@@ -106,7 +101,6 @@ export default class Chat extends Vue {
   // Firebaseのデータベースに新しい要素が追加されると随時呼び出しする
   public messageAdded(snap: firebase.database.DataSnapshot) {
     const message = snap.val() as Message;
-    const user = this.room.getMember(message.userUid);
     this.messages.push({
       key: snap.key || '',
       userUid: message.userUid,
