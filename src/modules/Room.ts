@@ -5,7 +5,9 @@ export default class Room {
   private code: string = '';
   /** ルーム名称 */
   private name: string = '';
-  /** チャットユーザーid一覧 */
+  /** メンバーのID一覧 */
+  private memberIds: Array<[string, boolean]> = [];
+  /** チャットユーザー一覧 */
   private members: ChatUser[] = [];
 
   constructor(code?: string, name?: string, members?: ChatUser[]) {
@@ -18,5 +20,21 @@ export default class Room {
     return this.members.find((member) => {
       return member.uid === userUid;
     });
+  }
+
+  public setMembersId(ids: Array<[string, boolean]>) {
+    this.memberIds = ids;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public getCode(): string {
+    return this.code;
+  }
+
+  public getMemberIds(): Array<[string, boolean]> {
+    return this.memberIds;
   }
 }

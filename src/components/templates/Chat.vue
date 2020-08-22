@@ -2,6 +2,11 @@
   <v-sheet>
     <v-card>
       <v-container>
+        <v-card-actions>
+          <v-btn @click="back">
+            一覧に戻る
+          </v-btn>
+        </v-card-actions>
         <v-card-title>
           {{room.name}}
         </v-card-title>
@@ -52,9 +57,8 @@ export default class Chat extends Vue {
   private user: ChatUser | null = null;
   private room: Room = new Room();
 
-  // propにする予定
-  private roomCd = 'room1';
-  private refMessage: firebase.database.Reference = firebase.database().ref('message/' + this.roomCd);
+  @Prop({ required: true })
+  private roomCd!: string;
 
   get currentUserUid(): string {
     return this.user ? this.user.uid : '';
@@ -71,9 +75,9 @@ export default class Chat extends Vue {
 
       if (user) {
         this.messages = [];
-        this.refMessage.limitToLast(10).on('child_added', this.messageAdded);
+        firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
       } else {
-        this.refMessage.limitToLast(10).on('child_added', this.messageAdded);
+        firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
       }
     });
   }
@@ -119,7 +123,7 @@ export default class Chat extends Vue {
         text: this.input,
         postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
       };
-      this.refMessage.push(message, () => {
+      firebase.database().ref('message/' + this.roomCd).push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
@@ -136,6 +140,10 @@ export default class Chat extends Vue {
         resolve(user);
       });
     });
+  }
+
+  public back() {
+    this.$router.push('/');
   }
 }
 </script>

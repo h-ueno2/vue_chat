@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '@/views/Home.vue';
+import ChatRoom from '@/components/pages/ChatRoom.vue';
 import Signup from '@/components/pages/Signup.vue';
 import Signin from '@/components/pages/Signin.vue';
 import UserUpdate from '@/components/pages/UserUpdate.vue';
+import Rounge from '@/components/pages/Rounge.vue';
 import firebase from 'firebase';
 
 Vue.use(VueRouter);
@@ -14,9 +15,9 @@ const routes: RouteConfig[] = [
     redirect: 'signin',
   },
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
+    path: '/room/:roomCd',
+    name: 'Room',
+    component: ChatRoom,
     meta: { requiresAuth: true },
   },
   {
@@ -33,6 +34,12 @@ const routes: RouteConfig[] = [
     path: '/userUpdate',
     name: 'UserUpdate',
     component: UserUpdate,
+  },
+  {
+    path: '/',
+    name: 'Rounge',
+    component: Rounge,
+    meta: { requiresAuth: true },
   },
 ];
 
