@@ -36,6 +36,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import firebase, { User, database } from 'firebase';
+import { RoutePath } from '@/router/RoutePath';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message, ChatUser } from '@/modules/type';
 import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
@@ -143,7 +144,7 @@ export default class Chat extends Vue {
   }
 
   public back() {
-    this.$router.push('/');
+    this.$router.push(RoutePath.ROUNGE);
   }
 }
 </script>

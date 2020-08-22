@@ -50,6 +50,7 @@
 <script lang="ts">
 import { Component, Vue, Mixins } from 'vue-property-decorator';
 import firebase from 'firebase';
+import { RoutePath } from '@/router/RoutePath';
 import MixinValid from '@/components/mixins/MixinValid';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import PasswordField from '@/components/atoms/PasswordField.vue';
@@ -94,7 +95,7 @@ export default class Signup extends Mixins(MixinValid) {
           displayName: this.name,
         });
         this.writeUserData(newUser.uid, this.name, newUser.email || '');
-        this.$router.push('/');
+        this.$router.push(RoutePath.ROUNGE);
       })
       .catch((error) => {
         this.isClicked = false;

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+import { RoutePath } from '@/router/RoutePath';
 import ChatRoom from '@/components/pages/ChatRoom.vue';
 import Signup from '@/components/pages/Signup.vue';
 import Signin from '@/components/pages/Signin.vue';
@@ -15,28 +16,28 @@ const routes: RouteConfig[] = [
     redirect: 'signin',
   },
   {
-    path: '/room/:roomCd',
+    path: RoutePath.ROOM + '/:roomCd',
     name: 'Room',
     component: ChatRoom,
     meta: { requiresAuth: true },
   },
   {
-    path: '/signup',
+    path: RoutePath.SIGNUP,
     name: 'Signup',
     component: Signup,
   },
   {
-    path: '/signin',
+    path: RoutePath.SIGNIN,
     name: 'Signin',
     component: Signin,
   },
   {
-    path: '/userUpdate',
+    path: RoutePath.USER_UPDATE,
     name: 'UserUpdate',
     component: UserUpdate,
   },
   {
-    path: '/',
+    path: RoutePath.ROUNGE,
     name: 'Rounge',
     component: Rounge,
     meta: { requiresAuth: true },

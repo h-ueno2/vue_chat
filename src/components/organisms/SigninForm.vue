@@ -36,6 +36,7 @@
 <script lang="ts">
 import { Component, Vue, Mixins } from 'vue-property-decorator';
 import firebase from 'firebase';
+import { RoutePath } from '@/router/RoutePath';
 import MixinValid from '@/components/mixins/MixinValid';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import PasswordField from '@/components/atoms/PasswordField.vue';
@@ -67,7 +68,7 @@ export default class SigninForm extends Mixins(MixinValid) {
     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then((user) => {
         this.errorMessage = '';
-        this.$router.push('/');
+        this.$router.push(RoutePath.ROUNGE);
       }, (err) => {
         this.isClicked = false;
         this.errorMessage = 'E-mail、Passwordの入力に誤りがあるか登録されていません。';

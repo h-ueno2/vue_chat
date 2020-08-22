@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { RoutePath } from '@/router/RoutePath';
 import Room from '@/modules/Room';
 
 @Component({
@@ -29,7 +30,7 @@ export default class RoomPanel extends Vue {
   private room!: Room;
 
   public inRoom() {
-    this.$router.push('/room/' + this.room.getCode());
+    this.$router.push(RoutePath.ROOM + '/' + this.room.getCode());
   }
 }
 </script>
