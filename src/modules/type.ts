@@ -10,10 +10,6 @@ export interface Message {
 
   /** 投稿日時 */
   postedAt: string;
-
-  name: string;
-
-  user?: ChatUser;
 }
 
 export interface ChatUser {

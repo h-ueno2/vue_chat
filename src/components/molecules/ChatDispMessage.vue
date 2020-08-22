@@ -17,6 +17,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { Message, ChatUser } from '@/modules/type';
+import Room from '@/modules/Room';
 
 @Component({
   name: 'ChatDispMessage',
@@ -28,8 +29,11 @@ export default class ChatDispMessage extends Vue {
   @Prop({default: ''})
   public currentUserUid?: string;
 
+  @Prop({required: true})
+  public room!: Room;
+
   get postedUser(): ChatUser | undefined {
-    return this.message.user;
+    return this.room.getMember(this.message.userUid);
   }
 
   get postedUserName(): string {

@@ -11,6 +11,7 @@
         <ChatMessageArea
           v-if="messages.length > 0"
           :messages="messages"
+          :room="room"
           :currentUserUid="currentUserUid"
           />
       </v-responsive>
@@ -111,8 +112,6 @@ export default class Chat extends Vue {
       userUid: message.userUid,
       text: message.text,
       postedAt: message.postedAt,
-      name: message.name,
-      user,
     });
   }
 
@@ -124,7 +123,6 @@ export default class Chat extends Vue {
         userUid: this.user.uid || '',
         text: this.input,
         postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
-        name: this.user.name || '',
       };
       this.refMessage.push(message, () => {
         this.input = ''; // 成功時にはフォームを空にする。

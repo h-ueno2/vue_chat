@@ -10,6 +10,7 @@
         <ChatDispMessage
           :message="message"
           :currentUserUid="currentUserUid"
+          :room="room"
           />
       </v-timeline-item>
     </v-timeline>
@@ -20,7 +21,7 @@
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { Message } from '@/modules/type';
 import ChatDispMessage from '@/components/molecules/ChatDispMessage.vue';
-
+import Room from '@/modules/Room';
 
 @Component({
   name: 'ChatMessageArea',
@@ -30,10 +31,13 @@ import ChatDispMessage from '@/components/molecules/ChatDispMessage.vue';
 })
 export default class ChatMessageArea extends Vue {
   @Prop({default: () => {}})
-  public messages?: Message[];
+  private messages?: Message[];
 
   @Prop({default: ''})
-  public currentUserUid?: string;
+  private currentUserUid?: string;
+
+  @Prop({required: true})
+  private room!: Room;
 }
 </script>
 
