@@ -1,21 +1,22 @@
 <template>
   <v-sheet>
-    <div
-      class="text-h4 d-flex align-center justify-center">
-      {{ room.name }}
-    </div>
-    <v-container>
-      <v-responsive
-        max-height="80vh"
-        class="overflow-y-auto">
-        <ChatMessageArea
-          v-if="messages.length > 0"
-          :messages="messages"
-          :room="room"
-          :currentUserUid="currentUserUid"
-          />
-      </v-responsive>
-    </v-container>
+    <v-card>
+      <v-container>
+        <v-card-title>
+          {{room.name}}
+        </v-card-title>
+        <v-responsive
+          max-height="80vh"
+          class="overflow-y-auto">
+          <ChatMessageArea
+            v-if="messages.length > 0"
+            :messages="messages"
+            :room="room"
+            :currentUserUid="currentUserUid"
+            />
+        </v-responsive>
+      </v-container>
+    </v-card>
 
     <v-footer
       class="white"
