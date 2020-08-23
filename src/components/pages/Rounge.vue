@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card row wrap>
       <v-card-title class="font-weight-bold display-1">
         ルーム一覧
       </v-card-title>
       <v-card-subtitle>
         入室するチャットルームを選択してください
       </v-card-subtitle>
-      <v-layout row wrap>
+      <v-layout wrap>
         <v-flex v-for="(room, index) in rooms" :key="index" md4 sm6 xs12>
           <RoomPanel 
             class="ma-1 pa-1"
