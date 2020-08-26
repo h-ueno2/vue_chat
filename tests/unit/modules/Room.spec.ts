@@ -2,26 +2,26 @@ import Room from '@/modules/Room';
 import { ChatUser } from '@/modules/type';
 
 describe('Room', (): void => {
+  const roomCd = 'room01';
+  const roomName = 'room name';
+  const members: ChatUser[] = [
+    {
+      uid: '00001',
+      name: 'テスト　太郎',
+      email: 'test01@example.com',
+    },
+    {
+      uid: '00002',
+      name: 'テスト　次郎',
+      email: 'test02@example.com',
+    },
+    {
+      uid: '00003',
+      name: 'テスト　三郎',
+      email: 'test03@example.com',
+    },
+  ];
   describe('getMember', (): void => {
-    const roomCd = 'room01';
-    const roomName = 'room name';
-    const members: ChatUser[] = [
-      {
-        uid: '00001',
-        name: 'テスト　太郎',
-        email: 'test01@example.com',
-      },
-      {
-        uid: '00002',
-        name: 'テスト　次郎',
-        email: 'test02@example.com',
-      },
-      {
-        uid: '00003',
-        name: 'テスト　三郎',
-        email: 'test03@example.com',
-      },
-    ];
     const room = new Room(roomCd, roomName, members);
 
     test('対象のユーザーが存在する場合はユーザーを返却', (): void => {
@@ -41,6 +41,30 @@ describe('Room', (): void => {
       const newRoom = new Room(roomCd, roomName, []);
       const member = newRoom.getMember('00001');
       expect(member).toBeUndefined();
+    });
+  });
+
+  describe('existsMemberUid', (): void => {
+    const room = new Room(roomCd, roomName, members);
+
+    test('対象のユーザーが存在する場合はtrueを返却', (): void => {
+      room.setMemberIds(['00001', '00002']);
+      expect(room.existsMemberUid('00002')).toBeTruthy();
+    });
+
+    test('対象のユーザーが存在しない場合はfalseを返却', (): void => {
+      room.setMemberIds(['00001', '00002']);
+      expect(room.existsMemberUid('99999')).toBeFalsy();
+    });
+
+    test('空白を渡した場合はfalseを返却', (): void => {
+      room.setMemberIds(['00001', '00002']);
+      expect(room.existsMemberUid('')).toBeFalsy();
+    });
+
+    test('memberIdsが空の場合はfalseを返却', (): void => {
+      room.setMemberIds([]);
+      expect(room.existsMemberUid('00001')).toBeFalsy();
     });
   });
 });

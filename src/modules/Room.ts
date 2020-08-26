@@ -6,7 +6,7 @@ export default class Room {
   /** ルーム名称 */
   private name: string = '';
   /** メンバーのID一覧 */
-  private memberIds: Array<[string, boolean]> = [];
+  private memberIds: string[] = [];
   /** チャットユーザー一覧 */
   private members: ChatUser[] = [];
 
@@ -22,7 +22,7 @@ export default class Room {
     });
   }
 
-  public setMembersId(ids: Array<[string, boolean]>) {
+  public setMemberIds(ids: string[]) {
     this.memberIds = ids;
   }
 
@@ -34,7 +34,15 @@ export default class Room {
     return this.code;
   }
 
-  public getMemberIds(): Array<[string, boolean]> {
+  public getMemberIds(): string[] {
     return this.memberIds;
+  }
+
+  /**
+   * Roomメンバーに引数userUidに対応するユーザがいた場合にtrueを返却します。
+   * @param userUid 確認対象ユーザのuid
+   */
+  public existsMemberUid(userUid: string): boolean {
+    return this.memberIds.includes(userUid);
   }
 }
