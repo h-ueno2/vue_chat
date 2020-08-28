@@ -91,14 +91,16 @@ export default class Chat extends Vue {
     this.room = await new Promise<Room>((resolve, reject) => {
       firebase.database().ref('rooms/' + roomCd).once('value').then((snap) => {
         const members: ChatUser[] = [];
+        const memberIds: string[] = [];
         snap.child('members').forEach((member) => {
           if (member.key && member.val()) {
+            memberIds.push(member.key);
             this.getUserByUid(member.key).then((res) => {
               members.push(res);
             });
           }
         });
-        resolve(new Room(this.roomCd, snap.child('name').val(), members));
+        resolve(new Room(this.roomCd, snap.child('name').val(), memberIds, members));
       });
     });
   }

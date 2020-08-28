@@ -10,13 +10,17 @@ export default class Room {
   /** チャットユーザー一覧 */
   private members: ChatUser[] = [];
 
-  constructor(code?: string, name?: string, members?: ChatUser[]) {
+  constructor(code?: string, name?: string, memberIds?: string[], members?: ChatUser[]) {
     this.code = code || '';
     this.name = name || '';
+    this.memberIds = memberIds || [];
     this.members = members || [];
-  }
+    }
 
   public getMember(userUid: string): ChatUser | undefined {
+    if (!this.existsMemberUid(userUid)) {
+      return;
+    }
     return this.members.find((member) => {
       return member.uid === userUid;
     });

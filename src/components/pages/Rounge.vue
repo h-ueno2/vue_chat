@@ -43,9 +43,16 @@ export default class Rounge extends Vue {
 
   public roomAdded(snap: firebase.database.DataSnapshot) {
     const roomCd = snap.key || '';
+    const memberIds: string[]  = [];
+    snap.child('members').forEach((member) => {
+      if (member.val()) {
+        memberIds.push(member.key as string);
+      }
+    });
     const room = new Room(
       roomCd,
       snap.child('name').val(),
+      memberIds,
     );
     this.rooms.push(room);
   }

@@ -4,6 +4,7 @@ import { ChatUser } from '@/modules/type';
 describe('Room', (): void => {
   const roomCd = 'room01';
   const roomName = 'room name';
+  const memberIds = ['00001', '00002', '00003'];
   const members: ChatUser[] = [
     {
       uid: '00001',
@@ -22,7 +23,7 @@ describe('Room', (): void => {
     },
   ];
   describe('getMember', (): void => {
-    const room = new Room(roomCd, roomName, members);
+    const room = new Room(roomCd, roomName, memberIds, members);
 
     test('対象のユーザーが存在する場合はユーザーを返却', (): void => {
       const member = room.getMember('00002');
@@ -45,7 +46,7 @@ describe('Room', (): void => {
   });
 
   describe('existsMemberUid', (): void => {
-    const room = new Room(roomCd, roomName, members);
+    const room = new Room(roomCd, roomName);
 
     test('対象のユーザーが存在する場合はtrueを返却', (): void => {
       room.setMemberIds(['00001', '00002']);
