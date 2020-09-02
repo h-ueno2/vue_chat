@@ -43,6 +43,7 @@ import ChatPostForm from '@/components/molecules/ChatPostForm.vue';
 import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
 import DateFormatter, { FormatType } from '@/modules/util/DateFormatter';
 import Room from '@/modules/Room';
+import UserAccess from '@/modules/access/UserAccess';
 
 @Component({
   name: 'Chat',
@@ -84,7 +85,7 @@ export default class Chat extends Vue {
   }
 
   public async setUser(uid: string) {
-    this.user =  await this.getUserByUid(uid);
+    this.user =  await UserAccess.getUserByUid(uid);
   }
 
   public async setRoom(roomCd: string) {
