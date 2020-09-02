@@ -17,6 +17,10 @@ export default class Room {
     this.members = members || [];
     }
 
+  /**
+   * membersから引数userUidに対応するChatUserを取得する。
+   * 対象のUserがmemberに存在しなければundefinedを返却する。
+   */
   public getMember(userUid: string): ChatUser | undefined {
     if (!this.existsMemberUid(userUid)) {
       return;
@@ -24,10 +28,6 @@ export default class Room {
     return this.members.find((member) => {
       return member.uid === userUid;
     });
-  }
-
-  public setMemberIds(ids: string[]) {
-    this.memberIds = ids;
   }
 
   public getName(): string {

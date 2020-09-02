@@ -46,26 +46,23 @@ describe('Room', (): void => {
   });
 
   describe('existsMemberUid', (): void => {
-    const room = new Room(roomCd, roomName);
+    const room = new Room(roomCd, roomName, memberIds);
 
     test('対象のユーザーが存在する場合はtrueを返却', (): void => {
-      room.setMemberIds(['00001', '00002']);
       expect(room.existsMemberUid('00002')).toBeTruthy();
     });
 
     test('対象のユーザーが存在しない場合はfalseを返却', (): void => {
-      room.setMemberIds(['00001', '00002']);
       expect(room.existsMemberUid('99999')).toBeFalsy();
     });
 
     test('空白を渡した場合はfalseを返却', (): void => {
-      room.setMemberIds(['00001', '00002']);
       expect(room.existsMemberUid('')).toBeFalsy();
     });
 
     test('memberIdsが空の場合はfalseを返却', (): void => {
-      room.setMemberIds([]);
-      expect(room.existsMemberUid('00001')).toBeFalsy();
+      const newRoom = new Room(roomCd, roomName, []);
+      expect(newRoom.existsMemberUid('00001')).toBeFalsy();
     });
   });
 });
