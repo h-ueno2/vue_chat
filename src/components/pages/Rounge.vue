@@ -11,7 +11,8 @@
         <v-flex v-for="(room, index) in rooms" :key="index" md4 sm6 xs12>
           <RoomPanel 
             class="ma-1 pa-1"
-            :room="room">
+            :room="room"
+            @inRoom="inRoom">
           </RoomPanel>
         </v-flex>
       </v-layout>
@@ -22,6 +23,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import firebase, { User, database } from 'firebase';
+import { RoutePath } from '@/router/RoutePath';
 import Room from '@/modules/Room';
 import RoomPanel from '@/components/molecules/RoomPanel.vue';
 
@@ -55,6 +57,10 @@ export default class Rounge extends Vue {
       memberIds,
     );
     this.rooms.push(room);
+  }
+
+  public inRoom(roomCd: string) {
+    this.$router.push(RoutePath.ROOM + '/' + roomCd);
   }
 }
 </script>
