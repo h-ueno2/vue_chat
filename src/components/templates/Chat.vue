@@ -96,7 +96,7 @@ export default class Chat extends Vue {
         snap.child('members').forEach((member) => {
           if (member.key && member.val()) {
             memberIds.push(member.key);
-            this.getUserByUid(member.key).then((res) => {
+            UserAccess.getUserByUid(member.key).then((res) => {
               members.push(res);
             });
           }
@@ -131,19 +131,6 @@ export default class Chat extends Vue {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
-  }
-
-  public async getUserByUid(uid: string): Promise<ChatUser> {
-    return await new Promise<ChatUser> ((resolve, reject) => {
-      firebase.database().ref('users/' + uid).once('value').then((snap) => {
-        const user: ChatUser = {
-          uid,
-          name: snap.child('name').val(),
-          email: snap.child('email').val(),
-        };
-        resolve(user);
-      });
-    });
   }
 
   public back() {
