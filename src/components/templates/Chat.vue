@@ -44,6 +44,7 @@ import ChatMessageArea from '@/components/organisms/ChatMessageArea.vue';
 import DateFormatter, { FormatType } from '@/modules/util/DateFormatter';
 import Room from '@/modules/Room';
 import UserAccess from '@/modules/access/UserAccess';
+import RoomAccess from '@/modules/access/RoomAccess';
 
 @Component({
   name: 'Chat',
@@ -89,21 +90,7 @@ export default class Chat extends Vue {
   }
 
   public async setRoom(roomCd: string) {
-    this.room = await new Promise<Room>((resolve, reject) => {
-      firebase.database().ref('rooms/' + roomCd).once('value').then((snap) => {
-        const members: ChatUser[] = [];
-        const memberIds: string[] = [];
-        snap.child('members').forEach((member) => {
-          if (member.key && member.val()) {
-            memberIds.push(member.key);
-            UserAccess.getUserByUid(member.key).then((res) => {
-              members.push(res);
-            });
-          }
-        });
-        resolve(new Room(this.roomCd, snap.child('name').val(), memberIds, members));
-      });
-    });
+    this.room = await RoomAccess.getRoom(roomCd);
   }
 
   // 受け取ったメッセージを追加

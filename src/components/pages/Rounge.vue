@@ -22,10 +22,11 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
-import firebase, { User, database } from 'firebase';
+import firebase from 'firebase';
 import { RoutePath } from '@/router/RoutePath';
 import Room from '@/modules/Room';
 import RoomPanel from '@/components/molecules/RoomPanel.vue';
+import RoomAccess from '@/modules/access/RoomAccess';
 
 @Component({
   name: 'Rounge',
@@ -39,24 +40,10 @@ export default class Rounge extends Vue {
   public created() {
     firebase.auth().onAuthStateChanged((user) => {
       // 表示内容の検討しだいで取得方法を変更する。
-      firebase.database().ref('rooms').on('child_added', this.roomAdded);
+      RoomAccess.getRooms().then((rooms) => {
+        this.rooms = rooms;
+      });
     });
-  }
-
-  public roomAdded(snap: firebase.database.DataSnapshot) {
-    const roomCd = snap.key || '';
-    const memberIds: string[]  = [];
-    snap.child('members').forEach((member) => {
-      if (member.val()) {
-        memberIds.push(member.key as string);
-      }
-    });
-    const room = new Room(
-      roomCd,
-      snap.child('name').val(),
-      memberIds,
-    );
-    this.rooms.push(room);
   }
 
   public inRoom(roomCd: string) {
