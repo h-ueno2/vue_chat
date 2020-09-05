@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import firebase from 'firebase';
+import Auth from '@/modules/access/Auth';
 
 @Component({
   name: 'SignoutBtn',
@@ -21,9 +21,9 @@ export default class SignoutBtn extends Vue {
   public isSigned?: boolean;
 
   public signout() {
-    firebase.auth().signOut().then(() => {
+    Auth.signOut().then(() => {
         this.$router.push('/signin');
-      });
+    });
   }
 }
 </script>

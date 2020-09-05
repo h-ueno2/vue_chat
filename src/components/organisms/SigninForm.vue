@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { Component, Vue, Mixins } from 'vue-property-decorator';
-import firebase from 'firebase';
+import Auth from '@/modules/access/Auth';
 import { RoutePath } from '@/router/RoutePath';
 import MixinValid from '@/components/mixins/MixinValid';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
@@ -65,7 +65,7 @@ export default class SigninForm extends Mixins(MixinValid) {
       return;
     }
 
-    firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+    Auth.signInWithEmailAndPassword(this.email, this.password)
       .then((user) => {
         this.errorMessage = '';
         this.$router.push(RoutePath.ROUNGE);
