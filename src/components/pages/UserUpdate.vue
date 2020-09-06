@@ -32,10 +32,12 @@
 
 <script lang="ts">
 import { Component, Vue, Mixins } from 'vue-property-decorator';
-import firebase from 'firebase';
+import Auth from '@/modules/access/Auth';
+import UserAccess from '@/modules/access/UserAccess';
 import MixinValid from '@/components/mixins/MixinValid';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import ErrorMessageText from '@/components/atoms/ErrorMessageText.vue';
+import { ChatUser } from '@/modules/type';
 
 @Component({
   name: 'UserUpdate',
@@ -47,12 +49,12 @@ import ErrorMessageText from '@/components/atoms/ErrorMessageText.vue';
 export default class UserUpdate extends Mixins(MixinValid) {
   public name: string = '';
   public valid: boolean = false;
-  private user?: firebase.User | null;
+  private user?: ChatUser;
   private errorMessage: string = '';
   private isClicked: boolean = false;
 
-  public created() {
-    this.user = firebase.auth().currentUser;
+  public async  created() {
+    this.user = await UserAccess.getCurrentUser();
   }
 
   public update() {
@@ -65,18 +67,10 @@ export default class UserUpdate extends Mixins(MixinValid) {
     }
 
     this.isClicked = true;
-    const usr = this.user;
-    this.user.updateProfile({
-      displayName: this.name,
+    UserAccess.updateUser(this.user.uid, {
+      name:  this.name,
     }).then(() => {
-      firebase.database().ref('users/' + usr.uid).update({
-        name: usr.displayName,
-      }).then(() => {
-        this.$router.push('/');
-      });
-    }).catch((error) => {
-      this.isClicked = false;
-      this.errorMessage = '更新に失敗しました。';
+      this.$router.push('/');
     });
   }
 }

@@ -22,7 +22,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
-import firebase from 'firebase';
 import { RoutePath } from '@/router/RoutePath';
 import Room from '@/modules/Room';
 import RoomPanel from '@/components/molecules/RoomPanel.vue';
@@ -38,11 +37,9 @@ export default class Rounge extends Vue {
   private rooms: Room[] = [];
 
   public created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      // 表示内容の検討しだいで取得方法を変更する。
-      RoomAccess.getRooms().then((rooms) => {
-        this.rooms = rooms;
-      });
+    // 表示内容の検討しだいで取得方法を変更する。
+    RoomAccess.getRooms().then((rooms) => {
+      this.rooms = rooms;
     });
   }
 

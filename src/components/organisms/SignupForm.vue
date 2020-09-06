@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { Component, Vue, Mixins } from 'vue-property-decorator';
-import firebase from 'firebase';
+import UserAccess from '@/modules/access/UserAccess';
 import Auth from '@/modules/access/Auth';
 import { RoutePath } from '@/router/RoutePath';
 import MixinValid from '@/components/mixins/MixinValid';
@@ -108,10 +108,7 @@ export default class Signup extends Mixins(MixinValid) {
    * Realtime DatabaseにUserデータを格納します。
    */
   public writeUserData(uid: string, name: string, email: string) {
-    firebase.database().ref('users/' + uid).set({
-      name,
-      email,
-    });
+    UserAccess.createUser(uid, name, email);
   }
 }
 </script>
