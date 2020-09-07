@@ -35,7 +35,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import firebase, { User, database } from 'firebase';
 import { RoutePath } from '@/router/RoutePath';
 import BaseTextField from '@/components/atoms/BaseTextField.vue';
 import { Message, ChatUser } from '@/modules/type';
@@ -45,6 +44,7 @@ import DateFormatter, { FormatType } from '@/modules/util/DateFormatter';
 import Room from '@/modules/Room';
 import UserAccess from '@/modules/access/UserAccess';
 import RoomAccess from '@/modules/access/RoomAccess';
+import MessageAccess from '@/modules/access/MessageAccess';
 
 @Component({
   name: 'Chat',
@@ -71,18 +71,15 @@ export default class Chat extends Vue {
     this.user = await UserAccess.getCurrentUser();
     this.room = await RoomAccess.getRoom(this.roomCd);
     this.messages = [];
-    firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
-  }
 
-  // 受け取ったメッセージを追加
-  // Firebaseのデータベースに新しい要素が追加されると随時呼び出しする
-  public messageAdded(snap: firebase.database.DataSnapshot) {
-    const message = snap.val() as Message;
-    this.messages.push({
-      key: snap.key || '',
-      userUid: message.userUid,
-      text: message.text,
-      postedAt: message.postedAt,
+    MessageAccess.childAdded(this.roomCd, (snap) => {
+      const message = snap.val() as Message;
+      this.messages.push({
+        key: snap.key || '',
+        userUid: message.userUid,
+        text: message.text,
+        postedAt: message.postedAt,
+      });
     });
   }
 
@@ -95,7 +92,7 @@ export default class Chat extends Vue {
         text: this.input,
         postedAt: formatter.format(FormatType.HYPHEN_DATE_TIME),
       };
-      firebase.database().ref('message/' + this.roomCd).push(message, () => {
+      MessageAccess.push(this.roomCd, message, () => {
         this.input = ''; // 成功時にはフォームを空にする。
       });
     }
