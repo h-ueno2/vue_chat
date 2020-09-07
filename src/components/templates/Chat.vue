@@ -69,17 +69,9 @@ export default class Chat extends Vue {
 
   public async created() {
     this.user = await UserAccess.getCurrentUser();
-    this.setRoom(this.roomCd);
+    this.room = await RoomAccess.getRoom(this.roomCd);
     this.messages = [];
     firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
-  }
-
-  public async setUser(uid: string) {
-    this.user =  await UserAccess.getUserByUid(uid);
-  }
-
-  public async setRoom(roomCd: string) {
-    this.room = await RoomAccess.getRoom(roomCd);
   }
 
   // 受け取ったメッセージを追加
