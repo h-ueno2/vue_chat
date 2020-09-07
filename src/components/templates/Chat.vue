@@ -67,22 +67,11 @@ export default class Chat extends Vue {
     return this.user ? this.user.uid : '';
   }
 
-  public created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        return;
-      }
-      this.setUser(user.uid);
-
-      this.setRoom(this.roomCd);
-
-      if (user) {
-        this.messages = [];
-        firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
-      } else {
-        firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
-      }
-    });
+  public async created() {
+    this.user = await UserAccess.getCurrentUser();
+    this.setRoom(this.roomCd);
+    this.messages = [];
+    firebase.database().ref('message/' + this.roomCd).limitToLast(10).on('child_added', this.messageAdded);
   }
 
   public async setUser(uid: string) {
