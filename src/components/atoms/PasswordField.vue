@@ -51,7 +51,3 @@ export default class PasswordField extends Vue {
   }
 }
 </script>
-
-<style>
-
-</style>

@@ -17,7 +17,3 @@ export default class ErrorMessageText extends Vue {
   public text?: string;
 }
 </script>
-
-<style>
-
-</style>

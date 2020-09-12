@@ -103,7 +103,3 @@ export default class Chat extends Vue {
   }
 }
 </script>
-
-<style>
-
-</style>
