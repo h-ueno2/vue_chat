@@ -9,13 +9,13 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "firebase": "^7.16.1",
+    "firebase": "^7.21.1",
     "promise": "^8.1.0",
-    "vue": "^2.6.11",
-    "vue-class-component": "^7.2.3",
+    "vue": "^2.6.12",
+    "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^8.4.2",
-    "vue-router": "^3.2.0",
-    "vuetify": "^2.2.11"
+    "vue-router": "^3.4.5",
+    "vuetify": "^2.3.10"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
@@ -24,13 +24,13 @@
     "@vue/cli-plugin-typescript": "~4.4.0",
     "@vue/cli-plugin-unit-jest": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
-    "@vue/test-utils": "^1.0.3",
+    "@vue/test-utils": "^1.1.0",
     "lint-staged": "^9.5.0",
-    "sass": "^1.26.5",
+    "sass": "^1.26.11",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
-    "vue-cli-plugin-vuetify": "~2.0.6",
-    "vue-template-compiler": "^2.6.11",
+    "vue-cli-plugin-vuetify": "^2.0.7",
+    "vue-template-compiler": "^2.6.12",
     "vuetify-loader": "^1.3.0"
   },
   "browserslist": [
