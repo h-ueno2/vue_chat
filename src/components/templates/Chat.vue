@@ -3,11 +3,16 @@
     <v-card>
       <v-container>
         <v-card-actions>
-          <v-btn @click="back">
+          <v-btn
+            class="my-0 py-0"
+            small
+            rounded
+            outlined
+            @click="back">
             一覧に戻る
           </v-btn>
         </v-card-actions>
-        <v-card-title>
+        <v-card-title class="my-0 py-0">
           {{room.name}}
         </v-card-title>
         <v-responsive
