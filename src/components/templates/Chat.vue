@@ -11,7 +11,7 @@
           {{room.name}}
         </v-card-title>
         <v-responsive
-          max-height="80vh"
+          max-height="70vh"
           class="overflow-y-auto">
           <ChatMessageArea
             v-if="messages.length > 0"
