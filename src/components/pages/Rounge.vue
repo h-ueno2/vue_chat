@@ -15,6 +15,11 @@
             @inRoom="inRoom">
           </RoomPanel>
         </v-flex>
+        <v-flex>
+          <RoomAddPanel
+            class="ma-1 pa-1">
+          </RoomAddPanel>
+        </v-flex>
       </v-layout>
     </v-card>
   </v-container>
@@ -25,12 +30,14 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { RoutePath } from '@/router/RoutePath';
 import Room from '@/modules/Room';
 import RoomPanel from '@/components/molecules/RoomPanel.vue';
+import RoomAddPanel from '@/components/molecules/RoomAddPanel.vue';
 import RoomAccess from '@/modules/access/RoomAccess';
 
 @Component({
   name: 'Rounge',
   components: {
     RoomPanel,
+    RoomAddPanel,
   },
 })
 export default class Rounge extends Vue {
