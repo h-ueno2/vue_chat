@@ -15,7 +15,7 @@
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.4.5",
-    "vuetify": "^2.3.10"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
