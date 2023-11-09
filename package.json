@@ -20,10 +20,10 @@
   "devDependencies": {
     "@types/firebase": "^3.2.1",
     "@types/jest": "^24.0.19",
-    "@vue/cli-plugin-router": "~4.4.0",
-    "@vue/cli-plugin-typescript": "~4.4.0",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-plugin-typescript": "~5.0.8",
     "@vue/cli-plugin-unit-jest": "~5.0.8",
-    "@vue/cli-service": "~4.4.0",
+    "@vue/cli-service": "~5.0.8",
     "@vue/test-utils": "^1.1.0",
     "lint-staged": "^9.5.0",
     "sass": "^1.26.11",
